@@ -10,7 +10,7 @@ import {
 import SplashScreen from 'react-native-splash-screen';
 import {NativeSpinner} from './src/components/NativeSPinkit';
 import {WebView} from 'react-native-webview';
-const packageAge = require('./package.json');
+import Package from './package.json';
 const App: () => React$Node = () => {
   const window = useWindowDimensions();
   const screenHeight = Dimensions.get('screen');
@@ -27,14 +27,8 @@ const App: () => React$Node = () => {
     return proportion > 1;
   }, [window.height, window.width]);
 
-  const packageUrl = useMemo(() => {
-    // return {uri: `http://www.cqqgsafe.com/${packageAge.name}/index.html`};
-    return {uri: `http://nametkfxlnoi.wcvh.cnyun-net.com`};
-  }, []);
-
   const renderContent = useMemo(() => {
-    if (loading) {
-    } else {
+    if (!loading) {
       return (
         <KeyboardAvoidingView behavior="position">
           <SafeAreaView
@@ -44,7 +38,9 @@ const App: () => React$Node = () => {
               paddingTop: equipmentType ? 0 : 35,
             }}>
             <WebView
-              source={packageUrl}
+              source={{
+                uri: `http://www.cqqgsafe.com/${Package.name}/index.html`,
+              }}
               onLoad={() => {
                 setLoading(false);
               }}
@@ -57,7 +53,7 @@ const App: () => React$Node = () => {
         </KeyboardAvoidingView>
       );
     }
-  }, [equipmentType, loading, packageUrl, screenHeight.height, window.width]);
+  }, [equipmentType, loading, screenHeight.height, window.width]);
   const renderPlaceholder = useMemo(() => {
     if (loading) {
       return (
