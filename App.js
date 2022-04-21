@@ -5,7 +5,6 @@ import {
   View,
   StatusBar,
   useWindowDimensions,
-  TextInput,
 } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import {NativeSpinner} from './src/components/NativeSPinkit';
@@ -65,7 +64,7 @@ const App: () => React$Node = () => {
         </SafeAreaView>
       );
     }
-  }, [equipmentType, loading, screenHeight.height, window.width]);
+  }, [equipmentType, loading, packageUrl, screenHeight.height, window.width]);
   return (
     <>
       <StatusBar
