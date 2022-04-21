@@ -1,38 +1,43 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {
   SafeAreaView,
-  StyleSheet,
+  Dimensions,
   View,
-  Text,
   StatusBar,
-  Modal,
   useWindowDimensions,
-  TouchableOpacity,
+  TextInput,
 } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import {NativeSpinner} from './src/components/NativeSPinkit';
 import {WebView} from 'react-native-webview';
-
+const packageAge = require('./package.json');
 const App: () => React$Node = () => {
   const window = useWindowDimensions();
+  const screenHeight = Dimensions.get('screen');
   const [loading, setLoading] = useState(true);
-
-  const [count1, setCount1] = useState(0);
-  const [count2, setCount2] = useState(0);
   useEffect(() => {
     SplashScreen.hide();
-    // setModalVisible(false);
     setTimeout(() => {
       setLoading(false);
     }, 2000);
   }, []);
+
+  const equipmentType = useMemo(() => {
+    let proportion = window.width / window.height;
+    return proportion > 1;
+  }, [window.height, window.width]);
+
+  const packageUrl = useMemo(() => {
+    return {uri: `http://www.cqqgsafe.com/${packageAge}/index.html`};
+  }, []);
+
   const renderContent = useMemo(() => {
     if (loading) {
       return (
         <View
           style={{
             width: window.width,
-            height: window.height,
+            height: screenHeight.height,
             alignItems: 'center',
             justifyContent: 'center',
           }}>
@@ -44,29 +49,28 @@ const App: () => React$Node = () => {
         <SafeAreaView
           style={{
             width: window.width,
-            height: window.height,
+            height: screenHeight.height,
+            paddingTop: equipmentType ? 0 : 35,
           }}>
           <WebView
-            source={{
-              uri: 'http://www.cqqgsafe.com/default/index.html',
-            }}
+            source={packageUrl}
             onLoad={() => {
               console.log('加载完毕');
             }}
             style={{
-              marginTop: 20,
               width: window.width,
-              height: window.height,
-            }}></WebView>
+              height: screenHeight.height,
+            }}
+          />
         </SafeAreaView>
       );
     }
-  }, [loading, window.height, window.width]);
+  }, [equipmentType, loading, screenHeight.height, window.width]);
   return (
     <>
       <StatusBar
         translucent={true}
-        barStyle={'dark-content'}
+        barStyle={equipmentType ? 'light-content' : 'dark-content'}
         backgroundColor="rgba(0, 0, 0, 0)"
       />
       {renderContent}
