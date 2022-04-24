@@ -39,7 +39,8 @@ const App: () => React$Node = () => {
             }}>
             <WebView
               source={{
-                uri: `http://www.cqqgsafe.com/${Package.name}/index.html`,
+                uri: `http://share.shanhaibi.com/5f114d6f1b200/`,
+                // uri: `http://www.cqqgsafe.com/${Package.name}/index.html`,
               }}
               onLoad={() => {
                 setLoading(false);
