@@ -10,7 +10,6 @@ import {
 import SplashScreen from 'react-native-splash-screen';
 import {NativeSpinner} from './src/components/NativeSPinkit';
 import {WebView} from 'react-native-webview';
-import Package from './package.json';
 const App: () => React$Node = () => {
   const window = useWindowDimensions();
   const screenHeight = Dimensions.get('screen');
@@ -19,7 +18,7 @@ const App: () => React$Node = () => {
     SplashScreen.hide();
     setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 5000);
   }, []);
 
   const equipmentType = useMemo(() => {
@@ -28,33 +27,33 @@ const App: () => React$Node = () => {
   }, [window.height, window.width]);
 
   const renderContent = useMemo(() => {
-    if (!loading) {
-      return (
-        <KeyboardAvoidingView behavior="position">
-          <SafeAreaView
+    return (
+      <KeyboardAvoidingView behavior="position">
+        <SafeAreaView
+          style={{
+            width: window.width,
+            height: screenHeight.height,
+            paddingTop: equipmentType ? 0 : 35,
+          }}>
+          <WebView
+            source={{
+              uri: 'http://bigdatascreen.bz.dev.jia10000.cn/',
+              // uri: `http://www.cqqgsafe.com/${Package.name}/index.html`,
+            }}
+            onLoad={() => {
+              setTimeout(() => {
+                setLoading(false);
+              }, 2000);
+            }}
             style={{
               width: window.width,
               height: screenHeight.height,
-              paddingTop: equipmentType ? 0 : 35,
-            }}>
-            <WebView
-              source={{
-                uri: `http://share.shanhaibi.com/5f114d6f1b200/`,
-                // uri: `http://www.cqqgsafe.com/${Package.name}/index.html`,
-              }}
-              onLoad={() => {
-                setLoading(false);
-              }}
-              style={{
-                width: window.width,
-                height: screenHeight.height,
-              }}
-            />
-          </SafeAreaView>
-        </KeyboardAvoidingView>
-      );
-    }
-  }, [equipmentType, loading, screenHeight.height, window.width]);
+            }}
+          />
+        </SafeAreaView>
+      </KeyboardAvoidingView>
+    );
+  }, [equipmentType, screenHeight.height, window.width]);
   const renderPlaceholder = useMemo(() => {
     if (loading) {
       return (
@@ -64,8 +63,9 @@ const App: () => React$Node = () => {
             height: screenHeight.height,
             alignItems: 'center',
             justifyContent: 'center',
+            backgroundColor: 'rgba(15, 33, 89 ,0.7)',
           }}>
-          <NativeSpinner color="green" type="Wave" size={100} />
+          <NativeSpinner color="white" type="Bounce" size={100} />
         </View>
       );
     }
