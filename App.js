@@ -28,8 +28,8 @@ const App: () => React$Node = () => {
   }, [window.height, window.width]);
 
   const packageUrl = useMemo(() => {
-    // return {uri: `http://www.cqqgsafe.com/${packageAge.name}/index.html`};
-    return {uri: `http://nametkfxlnoi.wcvh.cnyun-net.com`};
+    return {uri: `http://bigdatascreen.bz.dev.jia10000.cn/${packageAge.name}/`};
+    // return {uri: `http://nametkfxlnoi.wcvh.cnyun-net.com`};
   }, []);
 
   const renderContent = useMemo(() => {
@@ -51,6 +51,7 @@ const App: () => React$Node = () => {
               style={{
                 width: window.width,
                 height: screenHeight.height,
+                backgroundColor: '#000E2E',
               }}
             />
           </SafeAreaView>
@@ -67,8 +68,12 @@ const App: () => React$Node = () => {
             height: screenHeight.height,
             alignItems: 'center',
             justifyContent: 'center',
+            backgroundColor: '#000E2E',
           }}>
-          <NativeSpinner color="green" type="Wave" size={100} />
+          <NativeSpinner color="blue" type="9CubeGrid" size={100} />
+          {/*| 'Circle' well*/}
+          {/*| '9CubeGrid' well*/}
+          {/*| 'FadingCircleAlt' well*/}
         </View>
       );
     }
