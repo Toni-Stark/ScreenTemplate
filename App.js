@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {
   SafeAreaView,
   Dimensions,
@@ -6,7 +6,12 @@ import {
   StatusBar,
   useWindowDimensions,
   KeyboardAvoidingView,
+  Platform,
+  BackHandler,
+  ToastAndroid,
+  Alert,
 } from 'react-native';
+import {NavigationActions} from 'react-navigation';
 import SplashScreen from 'react-native-splash-screen';
 import {NativeSpinner} from './src/components/NativeSPinkit';
 import {WebView} from 'react-native-webview';
@@ -16,11 +21,36 @@ const App: () => React$Node = () => {
   const screenHeight = Dimensions.get('screen');
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    SplashScreen.hide();
     setTimeout(() => {
-      setLoading(false);
+      SplashScreen.hide();
+      setTimeout(() => {
+        setLoading(false);
+      }, 1500);
     }, 2000);
   }, []);
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', onBackPress);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    };
+  }, []);
+  let lastBackPressed = null;
+  const onBackPress = () => {
+    Alert.alert(
+      '退出应用',
+      '确认退出应用吗?',
+      [
+        {
+          text: '取消',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: '确认', onPress: () => BackHandler.exitApp()},
+      ],
+      {cancelable: false},
+    );
+    return true;
+  };
 
   const equipmentType = useMemo(() => {
     let proportion = window.width / window.height;
@@ -29,7 +59,6 @@ const App: () => React$Node = () => {
 
   const packageUrl = useMemo(() => {
     return {uri: `http://bigdatascreen.bz.dev.jia10000.cn/${packageAge.name}/`};
-    // return {uri: `http://nametkfxlnoi.wcvh.cnyun-net.com`};
   }, []);
 
   const renderContent = useMemo(() => {
@@ -71,9 +100,6 @@ const App: () => React$Node = () => {
             backgroundColor: '#000E2E',
           }}>
           <NativeSpinner color="blue" type="9CubeGrid" size={100} />
-          {/*| 'Circle' well*/}
-          {/*| '9CubeGrid' well*/}
-          {/*| 'FadingCircleAlt' well*/}
         </View>
       );
     }

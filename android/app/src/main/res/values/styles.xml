@@ -3,8 +3,13 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="android:windowBackground">#ffffff</item>
-<!--        <item name="android:windowTranslucentStatus">true</item>-->
-<!--        <item name="android:windowIsTranslucent">true</item>-->
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorPrimaryDark">@color/colorPrimary</item>
+        <item name="android:colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/colorAccent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowBackground">@drawable/launch_screen</item>
+        <item name="android:windowIsTranslucent">true</item>
     </style>
 </resources>
