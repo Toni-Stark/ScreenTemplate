@@ -3,7 +3,7 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '10.0'
 
-target 'Hubei' do
+target 'Shandong' do
   config = use_native_modules!
 
   use_react_native!(:path => config["reactNativePath"])
@@ -12,7 +12,7 @@ target 'Hubei' do
 
   pod 'react-native-webview', :path => '../node_modules/react-native-webview'
 
-  target 'HubeiTests' do
+  target 'ShandongTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -27,10 +27,10 @@ target 'Hubei' do
   end
 end
 
-target 'Hubei' do
-  # Pods for Hubei-tvOS
+target 'Shandong' do
+  # Pods for Shandong-tvOS
 
-  target 'Hubei-tvOSTests' do
+  target 'Shandong-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end

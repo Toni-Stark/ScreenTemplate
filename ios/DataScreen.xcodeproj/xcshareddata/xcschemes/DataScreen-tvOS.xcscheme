@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-               BuildableName = "Hubei-tvOS.app"
-               BlueprintName = "Hubei-tvOS"
-               ReferencedContainer = "container:Hubei.xcodeproj">
+               BuildableName = "Shandong-tvOS.app"
+               BlueprintName = "Shandong-tvOS"
+               ReferencedContainer = "container:Shandong.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "Hubei-tvOSTests.xctest"
-               BlueprintName = "Hubei-tvOSTests"
-               ReferencedContainer = "container:Hubei.xcodeproj">
+               BuildableName = "Shandong-tvOSTests.xctest"
+               BlueprintName = "Shandong-tvOSTests"
+               ReferencedContainer = "container:Shandong.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "Hubei-tvOS.app"
-            BlueprintName = "Hubei-tvOS"
-            ReferencedContainer = "container:Hubei.xcodeproj">
+            BuildableName = "Shandong-tvOS.app"
+            BlueprintName = "Shandong-tvOS"
+            ReferencedContainer = "container:Shandong.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "Hubei-tvOS.app"
-            BlueprintName = "Hubei-tvOS"
-            ReferencedContainer = "container:Hubei.xcodeproj">
+            BuildableName = "Shandong-tvOS.app"
+            BlueprintName = "Shandong-tvOS"
+            ReferencedContainer = "container:Shandong.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

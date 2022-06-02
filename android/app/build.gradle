@@ -130,7 +130,7 @@ android {
 
     defaultConfig {
         // 模块化修改位置
-        applicationId "com.hubei"
+        applicationId "com.shandong"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         renderscriptSupportModeEnabled true
