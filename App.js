@@ -58,7 +58,9 @@ const App: () => React$Node = () => {
   }, [window.height, window.width]);
 
   const packageUrl = useMemo(() => {
-    return {uri: `http://bigdatascreen.bz.dev.jia10000.cn/${packageAge.name}/`};
+    return {
+      uri: 'http://a.ce.360zhishu.cn/screen/stat/index?province_id=420000',
+    };
   }, []);
 
   const renderContent = useMemo(() => {

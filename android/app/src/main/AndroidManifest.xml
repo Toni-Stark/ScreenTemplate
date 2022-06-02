@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.datascreen">
+  package="com.hubei">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -29,7 +29,7 @@
     </application>
 </manifest>
 <!--<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.datascreen">
+  package="com.hubei">
 
     <uses-permission android:name="android.permission.INTERNET" />
 

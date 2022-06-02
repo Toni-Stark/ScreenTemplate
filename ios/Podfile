@@ -3,7 +3,7 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '10.0'
 
-target 'DataScreen' do
+target 'Hubei' do
   config = use_native_modules!
 
   use_react_native!(:path => config["reactNativePath"])
@@ -12,7 +12,7 @@ target 'DataScreen' do
 
   pod 'react-native-webview', :path => '../node_modules/react-native-webview'
 
-  target 'DataScreenTests' do
+  target 'HubeiTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -27,10 +27,10 @@ target 'DataScreen' do
   end
 end
 
-target 'DataScreen-tvOS' do
-  # Pods for DataScreen-tvOS
+target 'Hubei' do
+  # Pods for Hubei-tvOS
 
-  target 'DataScreen-tvOSTests' do
+  target 'Hubei-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end
