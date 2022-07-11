@@ -9,8 +9,10 @@ import {
   Text,
   BackHandler,
   Alert,
+  TouchableOpacity,
 } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
+import ReceiveSharingIntent from 'react-native-receive-sharing-intent';
 import {NativeSpinner} from './src/components/NativeSPinkit';
 const App: () => React$Node = () => {
   const window = useWindowDimensions();
@@ -28,6 +30,11 @@ const App: () => React$Node = () => {
     BackHandler.addEventListener('hardwareBackPress', onBackPress);
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    };
+  }, []);
+  useEffect(() => {
+    return () => {
+      ReceiveSharingIntent.clearReceivedFiles();
     };
   }, []);
   const onBackPress = () => {
@@ -52,6 +59,16 @@ const App: () => React$Node = () => {
     return proportion > 1;
   }, [window.height, window.width]);
 
+  const onPress = () => {
+    ReceiveSharingIntent.getReceivedFiles(
+      (files) => {},
+      (error) => {
+        console.log(error);
+      },
+      'ShareMedia', // share url protocol (must be unique to your app, suggest using your apple bundle id)
+    );
+  };
+
   const renderContent = useMemo(() => {
     return (
       <KeyboardAvoidingView behavior="position">
@@ -64,7 +81,9 @@ const App: () => React$Node = () => {
             alignItems: 'center',
             justifyContent: 'center',
           }}>
-          <Text style={{color: 'white', fontSize: 32}}>ReactNative</Text>
+          <TouchableOpacity onPress={onPress}>
+            <Text style={{color: 'white', fontSize: 32}}>ReactNative</Text>
+          </TouchableOpacity>
         </SafeAreaView>
       </KeyboardAvoidingView>
     );
