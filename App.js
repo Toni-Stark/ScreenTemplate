@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {
   SafeAreaView,
   Dimensions,
@@ -6,16 +6,12 @@ import {
   StatusBar,
   useWindowDimensions,
   KeyboardAvoidingView,
-  Platform,
+  Text,
   BackHandler,
-  ToastAndroid,
   Alert,
 } from 'react-native';
-import {NavigationActions} from 'react-navigation';
 import SplashScreen from 'react-native-splash-screen';
 import {NativeSpinner} from './src/components/NativeSPinkit';
-import {WebView} from 'react-native-webview';
-const packageAge = require('./package.json');
 const App: () => React$Node = () => {
   const window = useWindowDimensions();
   const screenHeight = Dimensions.get('screen');
@@ -34,7 +30,6 @@ const App: () => React$Node = () => {
       BackHandler.removeEventListener('hardwareBackPress', onBackPress);
     };
   }, []);
-  let lastBackPressed = null;
   const onBackPress = () => {
     Alert.alert(
       '退出应用',
@@ -57,39 +52,23 @@ const App: () => React$Node = () => {
     return proportion > 1;
   }, [window.height, window.width]);
 
-  const packageUrl = useMemo(() => {
-    return {
-      uri: 'http://www.corp.hbca110.com/home/default/map-stats',
-    };
-  }, []);
-
   const renderContent = useMemo(() => {
-    if (loading) {
-    } else {
-      return (
-        <KeyboardAvoidingView behavior="position">
-          <SafeAreaView
-            style={{
-              width: window.width,
-              height: screenHeight.height,
-              paddingTop: equipmentType ? 0 : 35,
-            }}>
-            <WebView
-              source={packageUrl}
-              onLoad={() => {
-                setLoading(false);
-              }}
-              style={{
-                width: window.width,
-                height: screenHeight.height,
-                backgroundColor: '#000E2E',
-              }}
-            />
-          </SafeAreaView>
-        </KeyboardAvoidingView>
-      );
-    }
-  }, [equipmentType, loading, packageUrl, screenHeight.height, window.width]);
+    return (
+      <KeyboardAvoidingView behavior="position">
+        <SafeAreaView
+          style={{
+            width: window.width,
+            height: screenHeight.height,
+            paddingTop: equipmentType ? 0 : 35,
+            backgroundColor: 'black',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Text style={{color: 'white', fontSize: 32}}>ReactNative</Text>
+        </SafeAreaView>
+      </KeyboardAvoidingView>
+    );
+  }, [equipmentType, screenHeight.height, window.width]);
   const renderPlaceholder = useMemo(() => {
     if (loading) {
       return (
@@ -114,7 +93,6 @@ const App: () => React$Node = () => {
         barStyle={equipmentType ? 'light-content' : 'dark-content'}
         backgroundColor="rgba(0, 0, 0, 0)"
       />
-      {renderPlaceholder}
       {renderContent}
     </>
   );
