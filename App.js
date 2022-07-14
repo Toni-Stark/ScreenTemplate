@@ -59,7 +59,7 @@ const App: () => React$Node = () => {
 
   const packageUrl = useMemo(() => {
     return {
-      uri: 'http://www.corp.hbca110.com/home/default/map-stats',
+      uri: 'http://a.ce.360zhishu.cn/screen/security/index?id=440111',
     };
   }, []);
 

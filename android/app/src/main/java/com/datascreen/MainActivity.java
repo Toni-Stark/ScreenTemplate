@@ -1,4 +1,4 @@
-package com.hebeiguan;
+package com.baiyun;
 import android.os.Bundle;
 import org.devio.rn.splashscreen.SplashScreen;
 import com.facebook.react.ReactActivity;
