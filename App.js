@@ -6,20 +6,28 @@ import {
   StatusBar,
   useWindowDimensions,
   KeyboardAvoidingView,
-  Platform,
   BackHandler,
-  ToastAndroid,
   Alert,
+  Text,
 } from 'react-native';
-import {NavigationActions} from 'react-navigation';
 import SplashScreen from 'react-native-splash-screen';
 import {NativeSpinner} from './src/components/NativeSPinkit';
 import {WebView} from 'react-native-webview';
-const packageAge = require('./package.json');
+import {
+  getDisplay,
+  getHardware,
+  getHost,
+  getMacAddress,
+  supportedAbis,
+  syncUniqueId,
+} from 'react-native-device-info';
+
 const App: () => React$Node = () => {
   const window = useWindowDimensions();
   const screenHeight = Dimensions.get('screen');
   const [loading, setLoading] = useState(true);
+  const [device, setDevice] = useState({});
+  const [matching, setMatching] = useState(false);
   useEffect(() => {
     setTimeout(() => {
       SplashScreen.hide();
@@ -28,13 +36,33 @@ const App: () => React$Node = () => {
       }, 1500);
     }, 2000);
   }, []);
+
+  const getDeviceDisplay = useCallback(async () => {
+    const device = {
+      display: await getDisplay(),
+      hardware: await getHardware(),
+      host: await getHost(),
+      macAddress: await getMacAddress(),
+      id: await syncUniqueId(),
+      Abis: await supportedAbis(),
+    };
+    setMatching(device.macAddress === 'D2:44:06:5D:13:42');
+    // setMatching(device.macAddress === '64:E0:AB:42:7F:15');
+    setDevice(device);
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      await getDeviceDisplay();
+    })();
+  }, [getDeviceDisplay]);
+
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', onBackPress);
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', onBackPress);
     };
   }, []);
-  let lastBackPressed = null;
   const onBackPress = () => {
     Alert.alert(
       '退出应用',
@@ -58,38 +86,72 @@ const App: () => React$Node = () => {
   }, [window.height, window.width]);
 
   const packageUrl = useMemo(() => {
+    let sn = device?.macAddress
+      ?.split(':')
+      .map((item) => item.trim())
+      .join('');
     return {
-      uri: 'http://a.ce.360zhishu.cn/screen/security/index?id=440111',
+      uri:
+        'http://cmsscreen.yyjun.pctop.cc/screen/city/index/7c9a9215?sn=' + sn,
     };
-  }, []);
+  }, [device.macAddress]);
 
   const renderContent = useMemo(() => {
-    if (loading) {
-    } else {
-      return (
-        <KeyboardAvoidingView behavior="position">
-          <SafeAreaView
+    if (!loading) {
+      if (matching && device?.macAddress) {
+        return (
+          <KeyboardAvoidingView behavior="position">
+            <SafeAreaView
+              style={{
+                width: window.width,
+                height: screenHeight.height,
+                paddingTop: equipmentType ? 0 : 35,
+              }}>
+              <WebView
+                source={packageUrl}
+                onLoad={() => {
+                  setLoading(false);
+                }}
+                style={{
+                  width: window.width,
+                  height: screenHeight.height,
+                  backgroundColor: '#000E2E',
+                }}
+              />
+            </SafeAreaView>
+          </KeyboardAvoidingView>
+        );
+      } else {
+        return (
+          <View
             style={{
               width: window.width,
               height: screenHeight.height,
               paddingTop: equipmentType ? 0 : 35,
+              backgroundColor: '#000E2E',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}>
-            <WebView
-              source={packageUrl}
-              onLoad={() => {
-                setLoading(false);
-              }}
+            <Text
               style={{
-                width: window.width,
-                height: screenHeight.height,
-                backgroundColor: '#000E2E',
-              }}
-            />
-          </SafeAreaView>
-        </KeyboardAvoidingView>
-      );
+                fontSize: 32,
+                color: '#ffffff',
+              }}>
+              该App未经授权，请联系供应商
+            </Text>
+          </View>
+        );
+      }
     }
-  }, [equipmentType, loading, packageUrl, screenHeight.height, window.width]);
+  }, [
+    device.macAddress,
+    equipmentType,
+    loading,
+    matching,
+    packageUrl,
+    screenHeight.height,
+    window.width,
+  ]);
   const renderPlaceholder = useMemo(() => {
     if (loading) {
       return (

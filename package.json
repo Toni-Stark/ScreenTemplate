@@ -1,5 +1,5 @@
 {
-  "name": "baiyun",
+  "name": "huangsi",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -12,6 +12,7 @@
   "dependencies": {
     "react": "16.13.1",
     "react-native": "0.63.3",
+    "react-native-device-info": "7.3.1",
     "react-native-gesture-handler": "^1.4.2",
     "react-native-spinkit": "^1.5.1",
     "react-native-splash-screen": "^3.3.0",
