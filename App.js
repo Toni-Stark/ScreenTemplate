@@ -13,14 +13,14 @@ import {
 import SplashScreen from 'react-native-splash-screen';
 import {NativeSpinner} from './src/components/NativeSPinkit';
 import {WebView} from 'react-native-webview';
-import {
-  getDisplay,
-  getHardware,
-  getHost,
-  getMacAddress,
-  supportedAbis,
-  syncUniqueId,
-} from 'react-native-device-info';
+// import {
+//   getDisplay,
+//   getHardware,
+//   getHost,
+//   getMacAddress,
+//   supportedAbis,
+//   syncUniqueId,
+// } from 'react-native-device-info';
 
 const App: () => React$Node = () => {
   const window = useWindowDimensions();
@@ -37,25 +37,24 @@ const App: () => React$Node = () => {
     }, 2000);
   }, []);
 
-  const getDeviceDisplay = useCallback(async () => {
-    const device = {
-      display: await getDisplay(),
-      hardware: await getHardware(),
-      host: await getHost(),
-      macAddress: await getMacAddress(),
-      id: await syncUniqueId(),
-      Abis: await supportedAbis(),
-    };
-    setMatching(device.macAddress === 'D2:44:06:5D:13:42');
-    // setMatching(device.macAddress === '64:E0:AB:42:7F:15');
-    setDevice(device);
-  }, []);
+  // const getDeviceDisplay = useCallback(async () => {
+  //   const device = {
+  //     display: await getDisplay(),
+  //     hardware: await getHardware(),
+  //     host: await getHost(),
+  //     macAddress: await getMacAddress(),
+  //     id: await syncUniqueId(),
+  //     Abis: await supportedAbis(),
+  //   };
+  //   setMatching(device.macAddress === '64:E0:AB:A4:23:82');
+  //   setDevice(device);
+  // }, []);
 
-  useEffect(() => {
-    (async () => {
-      await getDeviceDisplay();
-    })();
-  }, [getDeviceDisplay]);
+  // useEffect(() => {
+  //   (async () => {
+  //     await getDeviceDisplay();
+  //   })();
+  // }, [getDeviceDisplay]);
 
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', onBackPress);
@@ -92,7 +91,7 @@ const App: () => React$Node = () => {
       .join('');
     return {
       uri:
-        'http://cmsscreen.yyjun.pctop.cc/screen/city/index/7c9a9215?sn=' + sn,
+        'http://cmsscreen.yyjun.pctop.cc/screen/city/index/7c9a9215?code=' + sn,
     };
   }, [device.macAddress]);
 

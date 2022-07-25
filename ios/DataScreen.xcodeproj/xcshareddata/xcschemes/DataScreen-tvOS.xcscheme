@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-               BuildableName = "Shandong-tvOS.app"
-               BlueprintName = "Shandong-tvOS"
-               ReferencedContainer = "container:Shandong.xcodeproj">
+               BuildableName = "Huangsi-tvOS.app"
+               BlueprintName = "Huangsi-tvOS"
+               ReferencedContainer = "container:Huangsi.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "Shandong-tvOSTests.xctest"
-               BlueprintName = "Shandong-tvOSTests"
-               ReferencedContainer = "container:Shandong.xcodeproj">
+               BuildableName = "Huangsi-tvOSTests.xctest"
+               BlueprintName = "Huangsi-tvOSTests"
+               ReferencedContainer = "container:Huangsi.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "Shandong-tvOS.app"
-            BlueprintName = "Shandong-tvOS"
-            ReferencedContainer = "container:Shandong.xcodeproj">
+            BuildableName = "Huangsi-tvOS.app"
+            BlueprintName = "Huangsi-tvOS"
+            ReferencedContainer = "container:Huangsi.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "Shandong-tvOS.app"
-            BlueprintName = "Shandong-tvOS"
-            ReferencedContainer = "container:Shandong.xcodeproj">
+            BuildableName = "Huangsi-tvOS.app"
+            BlueprintName = "Huangsi-tvOS"
+            ReferencedContainer = "container:Huangsi.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
