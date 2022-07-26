@@ -13,14 +13,7 @@ import {
 import SplashScreen from 'react-native-splash-screen';
 import {NativeSpinner} from './src/components/NativeSPinkit';
 import {WebView} from 'react-native-webview';
-// import {
-//   getDisplay,
-//   getHardware,
-//   getHost,
-//   getMacAddress,
-//   supportedAbis,
-//   syncUniqueId,
-// } from 'react-native-device-info';
+import {getMacAddress} from 'react-native-device-info';
 
 const App: () => React$Node = () => {
   const window = useWindowDimensions();
@@ -28,6 +21,7 @@ const App: () => React$Node = () => {
   const [loading, setLoading] = useState(true);
   const [device, setDevice] = useState({});
   const [matching, setMatching] = useState(false);
+  const [devicesMac, setDevicesMac] = useState('');
   useEffect(() => {
     setTimeout(() => {
       SplashScreen.hide();
@@ -37,24 +31,23 @@ const App: () => React$Node = () => {
     }, 2000);
   }, []);
 
-  // const getDeviceDisplay = useCallback(async () => {
-  //   const device = {
-  //     display: await getDisplay(),
-  //     hardware: await getHardware(),
-  //     host: await getHost(),
-  //     macAddress: await getMacAddress(),
-  //     id: await syncUniqueId(),
-  //     Abis: await supportedAbis(),
-  //   };
-  //   setMatching(device.macAddress === '64:E0:AB:A4:23:82');
-  //   setDevice(device);
-  // }, []);
+  const getDeviceDisplay = useCallback(async () => {
+    let deviceOptions = {
+      macAddress: await getMacAddress(),
+    };
+    // setMatching(device.macAddress === 'D2:44:06:5D:13:42');
+    //   setMatching(device.macAddress === '00:14:62:00:06:3F');
+    // setMatching(device.macAddress === '3C:7A:AA:80:70:FF');
+    setMatching(device.macAddress === '00:14:62:D0:02:F9');
+    setDevicesMac(device.macAddress);
+    setDevice(deviceOptions);
+  }, [device.macAddress]);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     await getDeviceDisplay();
-  //   })();
-  // }, [getDeviceDisplay]);
+  useEffect(() => {
+    (async () => {
+      await getDeviceDisplay();
+    })();
+  }, [getDeviceDisplay]);
 
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', onBackPress);
@@ -90,8 +83,7 @@ const App: () => React$Node = () => {
       .map((item) => item.trim())
       .join('');
     return {
-      uri:
-        'http://cmsscreen.yyjun.pctop.cc/screen/city/index/7c9a9215?code=' + sn,
+      uri: 'http://a.ce.360zhishu.cn/screen/city/index/7c9a9215?code=' + sn,
     };
   }, [device.macAddress]);
 
@@ -137,6 +129,7 @@ const App: () => React$Node = () => {
                 color: '#ffffff',
               }}>
               该App未经授权，请联系供应商
+              {devicesMac}
             </Text>
           </View>
         );
@@ -144,6 +137,7 @@ const App: () => React$Node = () => {
     }
   }, [
     device.macAddress,
+    devicesMac,
     equipmentType,
     loading,
     matching,
