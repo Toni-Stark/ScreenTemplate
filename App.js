@@ -39,6 +39,7 @@ const App: () => React$Node = () => {
     //   setMatching(device.macAddress === '00:14:62:00:06:3F');
     // setMatching(device.macAddress === '3C:7A:AA:80:70:FF');
     setMatching(device.macAddress === '00:14:62:D0:02:F9');
+    // setMatching(device.macAddress === '74:8F:1B:F6:DC:18');
     setDevicesMac(device.macAddress);
     setDevice(deviceOptions);
   }, [device.macAddress]);
@@ -83,7 +84,7 @@ const App: () => React$Node = () => {
       .map((item) => item.trim())
       .join('');
     return {
-      uri: 'http://a.ce.360zhishu.cn/screen/city/index/7c9a9215?code=' + sn,
+      uri: 'http://a.ce.360zhishu.cn/screen/city/index/440111?code=' + sn,
     };
   }, [device.macAddress]);
 
