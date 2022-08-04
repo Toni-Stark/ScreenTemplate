@@ -1,8 +1,8 @@
-// const baseUrl = ;
-const baseUrl = __DEV__
-  ? 'http://cmsscreen.yyjun.pctop.cc'
-  : 'http://a.ce.360zhishu.cn';
-// 公安
+// const baseUrl = 'http://a.ce.360zhishu.cn';
+const baseUrl =
+  __DEV__ === 'developer'
+    ? 'http://cmsscreen.yyjun.pctop.cc'
+    : 'http://a.ce.360zhishu.cn';
 export const baseViewUrl = `${baseUrl}/screen/city/index/440111`;
 // 公信
 // export const baseViewUrl = `${baseUrl}/screen/stat/index/440111`;

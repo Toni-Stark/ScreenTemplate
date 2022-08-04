@@ -13,7 +13,12 @@ import {
 import SplashScreen from 'react-native-splash-screen';
 import {NativeSpinner} from './src/components/NativeSPinkit';
 import {WebView} from 'react-native-webview';
-import {getAndroidId, getMacAddress} from 'react-native-device-info';
+import {
+  getAndroidId,
+  getMacAddress,
+  getSerialNumber,
+  getSystemVersion,
+} from 'react-native-device-info';
 import {baseViewUrl, FetchApi} from './src/common/request';
 
 const App: () => React$Node = () => {
@@ -42,9 +47,14 @@ const App: () => React$Node = () => {
     let deviceOptions = {
       macAddress: await getMacAddress(),
       androidId: await getAndroidId(),
+      deviceVersion: getSystemVersion(),
+      serialNumber: await getSerialNumber(),
     };
-    const result = await getWebViewUrl({code: deviceOptions.androidId});
-    console.log(result);
+    let result;
+    result = await getWebViewUrl({code: deviceOptions.androidId});
+    if (!result) {
+      result = await getWebViewUrl({code: deviceOptions.macAddress});
+    }
     setMatching(result.data.check);
     setDevice(deviceOptions);
   }, []);
@@ -84,18 +94,22 @@ const App: () => React$Node = () => {
   }, [window.height, window.width]);
 
   const packageUrl = useMemo(() => {
-    let sn = device?.androidId
-      ?.split(':')
+    let sn;
+    sn = device?.androidId;
+    if (!sn) {
+      sn = device?.macAddress;
+    }
+    sn?.split(':')
       .map((item) => item.trim())
       .join('');
     return {
       uri: `${baseViewUrl}?code=${sn}`,
     };
-  }, [device.androidId]);
+  }, [device.androidId, device.macAddress]);
 
   const renderContent = useMemo(() => {
     if (!loading) {
-      if (matching && device?.macAddress) {
+      if (matching) {
         return (
           <KeyboardAvoidingView behavior="position">
             <SafeAreaView
@@ -141,7 +155,7 @@ const App: () => React$Node = () => {
                 fontSize: 32,
                 color: '#ffffff',
               }}>
-              {device.androidId}
+              {device.androidId || device.macAddress}
             </Text>
           </View>
         );
