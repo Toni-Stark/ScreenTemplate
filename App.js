@@ -13,7 +13,8 @@ import {
 import SplashScreen from 'react-native-splash-screen';
 import {NativeSpinner} from './src/components/NativeSPinkit';
 import {WebView} from 'react-native-webview';
-import {getMacAddress} from 'react-native-device-info';
+import {getAndroidId, getMacAddress} from 'react-native-device-info';
+import {baseViewUrl, FetchApi} from './src/common/request';
 
 const App: () => React$Node = () => {
   const window = useWindowDimensions();
@@ -21,7 +22,6 @@ const App: () => React$Node = () => {
   const [loading, setLoading] = useState(true);
   const [device, setDevice] = useState({});
   const [matching, setMatching] = useState(false);
-  const [devicesMac, setDevicesMac] = useState('');
   useEffect(() => {
     setTimeout(() => {
       SplashScreen.hide();
@@ -30,26 +30,30 @@ const App: () => React$Node = () => {
       }, 1500);
     }, 2000);
   }, []);
+  const getWebViewUrl = async (params) => {
+    const data = {
+      url: baseViewUrl,
+      code: params.code,
+    };
+    return await FetchApi({path: '/screen/pre-judge/check', data});
+  };
 
   const getDeviceDisplay = useCallback(async () => {
     let deviceOptions = {
       macAddress: await getMacAddress(),
+      androidId: await getAndroidId(),
     };
-    // setMatching(device.macAddress === 'D2:44:06:5D:13:42');
-    //   setMatching(device.macAddress === '00:14:62:00:06:3F');
-    // setMatching(device.macAddress === '3C:7A:AA:80:70:FF');
-    // setMatching(device.macAddress === '00:14:62:D0:02:F9');
-    // setMatching(device.macAddress === '74:8F:1B:F6:DC:18');
-    setMatching(device.macAddress === '74:8F:1B:F3:F3:B6');
-    setDevicesMac(device.macAddress);
+    const result = await getWebViewUrl({code: deviceOptions.androidId});
+    console.log(result);
+    setMatching(result.data.check);
     setDevice(deviceOptions);
-  }, [device.macAddress]);
+  }, []);
 
   useEffect(() => {
     (async () => {
       await getDeviceDisplay();
     })();
-  }, [getDeviceDisplay]);
+  }, []);
 
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', onBackPress);
@@ -80,15 +84,14 @@ const App: () => React$Node = () => {
   }, [window.height, window.width]);
 
   const packageUrl = useMemo(() => {
-    let sn = device?.macAddress
+    let sn = device?.androidId
       ?.split(':')
       .map((item) => item.trim())
       .join('');
     return {
-      uri:
-        'http://cmsscreen.yyjun.pctop.cc/screen/stat/index/420000?code=' + sn,
+      uri: `${baseViewUrl}?code=${sn}`,
     };
-  }, [device.macAddress]);
+  }, [device.androidId]);
 
   const renderContent = useMemo(() => {
     if (!loading) {
@@ -132,15 +135,21 @@ const App: () => React$Node = () => {
                 color: '#ffffff',
               }}>
               该App未经授权，请联系供应商
-              {devicesMac}
+            </Text>
+            <Text
+              style={{
+                fontSize: 32,
+                color: '#ffffff',
+              }}>
+              {device.androidId}
             </Text>
           </View>
         );
       }
     }
   }, [
+    device.androidId,
     device.macAddress,
-    devicesMac,
     equipmentType,
     loading,
     matching,
