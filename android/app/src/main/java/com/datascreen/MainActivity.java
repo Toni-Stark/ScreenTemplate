@@ -1,4 +1,4 @@
-package com.guohua;
+package com.lingxia;
 import android.os.Bundle;
 import org.devio.rn.splashscreen.SplashScreen;
 import com.facebook.react.ReactActivity;

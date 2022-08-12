@@ -3,7 +3,7 @@ const baseUrl =
   __DEV__ === 'developer'
     ? 'http://cmsscreen.yyjun.pctop.cc'
     : 'http://a.ce.360zhishu.cn';
-export const baseViewUrl = `${baseUrl}/screen/city/index/440111`;
+export const baseViewUrl = `${baseUrl}/screen/stat/index/ErJFt5jC`;
 // 公信
 // export const baseViewUrl = `${baseUrl}/screen/stat/index/440111`;
 
