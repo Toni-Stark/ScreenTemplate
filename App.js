@@ -40,7 +40,7 @@ const App: () => React$Node = () => {
       url: baseViewUrl,
       code: params.code,
     };
-    return await FetchApi({path: '/stat/index-bj/110000', data});
+    return await FetchApi({path: '/screen/pre-judge/check', data});
   };
 
   const getDeviceDisplay = useCallback(async () => {
